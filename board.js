@@ -34,19 +34,6 @@
       }
     }
   };
-
-  Board.prototype.lost = function() {
-    var tile = {};
-    for(var i = 0; i < this.grid_size; i++) {
-      for(var j = 0; j < this.grid_size; j++) {
-        tile = this.grid[i][j];
-        if (tile.bombed && tile.explored){
-          return true;
-        }
-      }
-    }
-    return false;
-  };
   
   Board.prototype.won = function() {
     var tile = {};
@@ -72,12 +59,12 @@
         tile = this.grid[i][j];
         color = "";
         
-        if (tile.flagged){
-          display = "F";
-        }
-        else if (tile.bombed && reveal){
+        if (tile.bombed && reveal){
           display = "*";
           color = "bombed"
+        }
+        else if (tile.flagged){
+          display = "⚑";
         }
         else if (!tile.explored){
           display = " ";
@@ -100,20 +87,25 @@
   
   Board.prototype.setTileHandlers = function () {
     var that = this;
-    $('td').on('click', function(){
+    $('td').on('mousedown', function(event){
       var x = $(this).attr('data-x');
       var y = $(this).attr('data-y');
       var tile = that.grid[x][y];
       
-      $('.board').empty();
-      tile.explore();
-      
-      if(tile.bombed){
-        that.reveal();
+      if(that.won()){
+        
       }
-      else{
-        that.render(false);
-        that.setTileHandlers();
+      else if (event.which == 3){
+        tile.toggle_flag();
+        tile.render();
+      }
+      else {
+        tile.explore();
+      
+        if(tile.bombed){
+          $('.board').empty();
+          that.reveal();
+        }
       }
     });
   };

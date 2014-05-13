@@ -48,6 +48,7 @@
       return this;
     }
     this.explored = true;
+    this.render();
     if (!this.bombed && this.adjacent_bomb_count() === 0){
       var x = 0;
       var y = 0;
@@ -64,7 +65,21 @@
   };
 
   Tile.prototype.render = function(){
-
+    var x = this.pos[0];
+    var y = this.pos[1];
+    
+    $('td[data-x=' + x + '][data-y=' + y + ']').text(' ');
+    
+    if (this.flagged){
+      $('td[data-x=' + x + '][data-y=' + y + ']').text("⚑");
+    }
+    else if (this.explored){
+      display = this.adjacent_bomb_count();
+      if (display === 0){
+        display = " ";
+      }
+      $('td[data-x=' + x + '][data-y=' + y + ']').text(display).addClass('explored');
+    }
   };
 
   Tile.prototype.reveal = function(){
