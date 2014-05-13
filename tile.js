@@ -82,10 +82,6 @@
     }
   };
 
-  Tile.prototype.reveal = function(){
-    
-  };
-
   Tile.prototype.toggle_flag = function(){
     if (this.explored){
       return;

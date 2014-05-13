@@ -92,20 +92,24 @@
       var y = $(this).attr('data-y');
       var tile = that.grid[x][y];
       
-      if(that.won()){
-        
-      }
-      else if (event.which == 3){
+      if (event.which == 3){
         tile.toggle_flag();
         tile.render();
       }
       else {
         tile.explore();
-      
+        
         if(tile.bombed){
+          $('figure').addClass('lose');
           $('.board').empty();
           that.reveal();
         }
+      }
+      
+      if(that.won()){
+        $('figure').addClass('win');
+        $('.board').empty();
+        that.render(false);
       }
     });
   };

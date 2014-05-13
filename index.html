@@ -6,7 +6,7 @@
 </head>
 <style>
 
-html, body, header, h1, nav, ul, li, a {
+html, body, header, h1, nav, ul, li, a, figure {
   margin: 0;
   padding: 0;
   border: 0;
@@ -20,6 +20,7 @@ body {
 }
 
 h1 {
+  position: relative;
   font-size: 30px;
   font-weight: bold;
   margin: 20px 0;
@@ -56,6 +57,29 @@ nav {
 
 }
 
+figure {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  left: 200px;
+  top: -10px;
+}
+
+.wrapper{
+  position: relative;
+}
+
+.win {
+  background: url('smiley.png');
+  background-size: 80px 80px;
+}
+
+.lose {
+  background: url('sad.png');
+  background-size: 80px 80px;
+}
+
+
 /* clearfix */
 
 .group:after {
@@ -66,7 +90,10 @@ nav {
 
 </style>
 <body>
-  <h1>Minesweeper</h1>
+  <div class="wrapper">
+    <h1>Minesweeper</h1>
+    <figure></figure>
+  <div>
   <nav class="group">
     <ul>
       <li>
@@ -91,6 +118,7 @@ nav {
   $(document).ready(function(){
     new Minesweeper.Game('small');
     $('button').on('click', function(){
+      $('figure').removeClass();
       $('.board').empty();
       new Minesweeper.Game(this.value);
     });
