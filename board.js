@@ -26,14 +26,12 @@
     while (total_bombs < this.num_bombs){
       var rand_x = Math.floor(Math.random()*this.grid_size);
       var rand_y = Math.floor(Math.random()*this.grid_size);
-      var tile = this.grid[x][y];
+      var tile = this.grid[rand_x][rand_y];
       
-      if (tile.bombed) {
-        next;
+      if (!tile.bombed) {
+        tile.plant_bomb();
+        total_bombs += 1;
       }
-      
-      tile.plant_bomb();
-      total_bombs += 1;
     }
   };
 
@@ -63,12 +61,65 @@
     return true;
   };
   
-  Board.prototype.render = function() {
-    
+  Board.prototype.render = function(reveal) {
+    var tile = {};
+    var display = " ";
+    var color = "";
+    var html = '<table><thead><tr></tr></thead><tbody>';
+    for(var i = 0; i < this.grid_size; i++) {
+      html += '<tr>';
+      for(var j = 0; j < this.grid_size; j++) {
+        tile = this.grid[i][j];
+        color = "";
+        
+        if (tile.flagged){
+          display = "F";
+        }
+        else if (tile.bombed && reveal){
+          display = "*";
+          color = "bombed"
+        }
+        else if (!tile.explored){
+          display = " ";
+        }
+        else {
+          display = tile.adjacent_bomb_count();
+          if (display === 0){
+            display = " ";
+          }
+          color = "explored"
+        }
+        html += '<td class=\"' + color + '\"'; 
+        html += 'data-x=\"' + i + '\" data-y=\"' + j + '\" >' + display + '</td>';
+      }
+      html += "</tr>";
+    }
+    html += '</tbody><tfoot><tr></tr></tfoot></table>';
+    $(html).appendTo('.board');
+  };
+  
+  Board.prototype.setTileHandlers = function () {
+    var that = this;
+    $('td').on('click', function(){
+      var x = $(this).attr('data-x');
+      var y = $(this).attr('data-y');
+      var tile = that.grid[x][y];
+      
+      $('.board').empty();
+      tile.explore();
+      
+      if(tile.bombed){
+        that.reveal();
+      }
+      else{
+        that.render(false);
+        that.setTileHandlers();
+      }
+    });
   };
   
   Board.prototype.reveal = function() {
-    
+    this.render(true);
   };
 
 })(this);

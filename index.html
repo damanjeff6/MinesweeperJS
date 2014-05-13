@@ -1,0 +1,96 @@
+<DOCTYPE! HTML>
+<html>
+<head>
+  <title>Minesweeper</title>
+</head>
+<style>
+
+html, body, header, h1, nav, ul, li, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+td {
+  height: 30px;
+  width: 30px;
+  background-color: grey;
+  text-align:center; 
+  vertical-align:middle;
+}
+
+.explored {
+  background-color: lightgrey;
+}
+
+.bombed {
+  background-color: red;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  float: left;
+}
+
+nav {
+  
+}
+
+/* clearfix */
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+</style>
+<body>
+  <h1>Minesweeper</h1>
+  <nav class="group">
+    <ul>
+      <li>
+        <button value="small">Small</button>
+      </li>
+      <li>
+        <button value="medium">Medium</button>
+      </li>
+      <li>
+        <button value="large">Large</button>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="board"></div>
+  
+  <script src='jquery-1.9.1.min.js'></script>
+  <script src="tile.js"></script>
+  <script src="board.js"></script>
+  <script src="game.js"></script>
+  <script>
+  $(document).ready(function(){
+    new Minesweeper.Game('small');
+    $('button').on('click', function(){
+      $('.board').empty();
+      new Minesweeper.Game(this.value);
+    });
+  });
+  </script>
+</body>
+</html>

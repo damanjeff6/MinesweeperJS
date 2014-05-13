@@ -31,7 +31,7 @@
     for (var i = 0; i < Tile.DIRS.length; i++){
       x = this.pos[0] + Tile.DIRS[i][0];
       y = this.pos[1] + Tile.DIRS[i][1];
-      if (x > 0 && x < this.board.grid_size && y > 0 && y < this.board.grid_size){
+      if (x >= 0 && x < this.board.grid_size && y >= 0 && y < this.board.grid_size){
         if (this.board.grid[x][y].bombed){
           count += 1;
         }
@@ -54,7 +54,7 @@
       for (var i = 0; i < Tile.DIRS.length; i++){
         x = this.pos[0] + Tile.DIRS[i][0];
         y = this.pos[1] + Tile.DIRS[i][1];
-        if (x > 0 && x < this.board.grid_size && y > 0 && y < this.board.grid_size){
+        if (x >= 0 && x < this.board.grid_size && y >= 0 && y < this.board.grid_size){
           this.board.grid[x][y].explore();
         }
       }
@@ -68,7 +68,7 @@
   };
 
   Tile.prototype.reveal = function(){
-
+    
   };
 
   Tile.prototype.toggle_flag = function(){

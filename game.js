@@ -4,6 +4,9 @@
   var Game = Minesweeper.Game = function (size){
       var layout = Game.LAYOUTS[size];
       this.board = new Minesweeper.Board(layout.grid_size, layout.num_bombs);
+      
+      this.board.render(false);
+      this.board.setTileHandlers();
   };
   
   Game.LAYOUTS = {
