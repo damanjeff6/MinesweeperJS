@@ -20,6 +20,18 @@
     [ 1,  1]
   ];
   
+  Tile.COLOR = {
+    ' ': '',
+    '1': 'one',
+    '2': 'two',
+    '3': 'three',
+    '4': 'four',
+    '5': 'five',
+    '6': 'six',
+    '7': 'seven',
+    '8': 'eight'
+  };
+  
   Tile.prototype.plant_bomb = function (){
     this.bombed = true;
   };
@@ -71,14 +83,14 @@
     $('td[data-x=' + x + '][data-y=' + y + ']').text(' ');
     
     if (this.flagged){
-      $('td[data-x=' + x + '][data-y=' + y + ']').text("⚑");
+      $('td[data-x=' + x + '][data-y=' + y + ']').text("F").addClass('flagged');
     }
     else if (this.explored){
       display = this.adjacent_bomb_count();
       if (display === 0){
         display = " ";
       }
-      $('td[data-x=' + x + '][data-y=' + y + ']').text(display).addClass('explored');
+      $('td[data-x=' + x + '][data-y=' + y + ']').text(display).addClass('explored').addClass(Tile.COLOR[display]);
     }
   };
 

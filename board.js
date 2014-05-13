@@ -51,7 +51,7 @@
   Board.prototype.render = function(reveal) {
     var tile = {};
     var display = " ";
-    var color = "";
+    var color = " ";
     var html = '<table><thead><tr></tr></thead><tbody>';
     for(var i = 0; i < this.grid_size; i++) {
       html += '<tr>';
@@ -64,7 +64,7 @@
           color = "bombed"
         }
         else if (tile.flagged){
-          display = "⚑";
+          display = "F";
         }
         else if (!tile.explored){
           display = " ";
@@ -76,7 +76,7 @@
           }
           color = "explored"
         }
-        html += '<td class=\"' + color + '\"'; 
+        html += '<td class=\"' + color + ' ' + Minesweeper.Tile.COLOR[display] +'\"'; 
         html += 'data-x=\"' + i + '\" data-y=\"' + j + '\" >' + display + '</td>';
       }
       html += "</tr>";
@@ -96,6 +96,7 @@
         tile.toggle_flag();
         tile.render();
       }
+      else if (event.which == 1 && tile.flagged){}
       else {
         tile.explore();
         
