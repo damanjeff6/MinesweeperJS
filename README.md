@@ -1,4 +1,11 @@
-MinesweeperJS
+Minesweeper in Javascript/HTML/CSS
 =============
 
-Minesweeper built in Javascript/HTML5/CSS3
+Minesweeper
+- Javascript
+- jQuery
+- HTML5
+- CSS3
+
+Try it out!
+https://s3-us-west-1.amazonaws.com/minesweeperjs/index.html
